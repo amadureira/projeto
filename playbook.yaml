@@ -5,6 +5,7 @@
    - name: Debug
      debug: 
       var: master
-#  - name: Install swarm 
-#    include_role: 
-#     name: "swarm-cluster"
+
+   - name: Install swarm 
+     include_role: 
+      name: "swarm-cluster"

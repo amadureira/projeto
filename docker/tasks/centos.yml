@@ -4,6 +4,17 @@
    pip_extra_args: "--proxy {{proxy_addr}}"
   when: proxy_addr is defined
 
+- name: Config proxy
+  lineinfile: 
+   path: "/etc/yum.conf"
+   regex: "^proxy=.+$"
+   line: "proxy=http://{{proxy_addr}}"
+  when: proxy_addr is defined
+
+- name: Install docker
+  yum: 
+   name: python2-pip
+   state: installed
 
 - name: Install docker
   yum: 
