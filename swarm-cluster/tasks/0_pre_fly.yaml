@@ -1,0 +1,16 @@
+---
+###
+#Here we create a list to install master
+###
+- name: Set Arrays
+  set_fact: 
+   master_nodes: [] 
+- name: Ser Master array
+  set_fact: 
+   master_nodes: "{{master_nodes + [item]}}"
+  when: hostvars[item]['master'] is defined
+  with_itens: "{{groups[swarm_manager]}}"
+- name: Master firts node
+  set_fact: 
+   first_node: true
+  when: ansible_fqdn == master_nodes[0]

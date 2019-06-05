@@ -1,0 +1,29 @@
+
+- name: Set proxy
+  set_fact: 
+   pip_extra_args: "--proxy {{proxy_addr}}"
+  when: proxy_addr is defined
+
+
+- name: Install docker
+  yum: 
+   name: docker
+   state: installed
+  register: docker_install
+
+- name: Init docker service
+  service: 
+   name: "docker"
+   state: started
+
+- name: Set proxy
+  set_fact: 
+   pip_extra_args: "--proxy {{proxy_addr}}"
+  when: proxy_addr is defined
+
+- name: pip install 
+  pip: 
+   name: "{{item}}"
+   extra_args: "{{pip_extra_args| default('')}}"
+  with_items: 
+   - docker

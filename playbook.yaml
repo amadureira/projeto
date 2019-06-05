@@ -1,0 +1,10 @@
+---
+- hosts: "{{swarm_manager| default('None')}}"
+  become: yes
+  tasks: 
+   - name: Debug
+     debug: 
+      var: master
+#  - name: Install swarm 
+#    include_role: 
+#     name: "swarm-cluster"

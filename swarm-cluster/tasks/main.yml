@@ -1,0 +1,4 @@
+---
+# tasks file for swarm-cluster
+- include_tasks: 0_pre_fly.yaml
+  #- include_tasks: 1_cluster_settings.yaml

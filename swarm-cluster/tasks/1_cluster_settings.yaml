@@ -1,0 +1,28 @@
+---
+- include_role: 
+   name: "docker"
+
+- name: Init docker swamr cluster
+  docker_swarm: 
+   state: present
+   election_tick: 5
+  when: first_node is defined and first_node  and docker_install.changed
+
+- name: Get master info
+  docker_swarm: 
+   state: inspect
+  when: first_node is defined and first_node 
+  register: node_master_tocken
+
+- name: debug
+  debug: 
+   msg: "{{hostvars[master_nodes[0]]['node_master_tocken']['swarm_facts']['JoinTokens']['Manager']}}"
+  when:  not first_node is defined 
+
+- name: Join swarm cluster
+  docker_swarm: 
+   state: join
+   advertise_addr: "{{ansible_fqdn}}"
+   join_token: "{{hostvars[master_nodes[0]]['node_master_tocken']['swarm_facts']['JoinTokens']['Manager']}}"
+   remote_addrs: "{{master_nodes[0]}}"
+  when:  not first_node is defined and docker_install.changed
