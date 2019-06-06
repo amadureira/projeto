@@ -20,7 +20,7 @@
    advertise_addr: "{{ansible_fqdn}}"
    join_token: "{{hostvars[master_nodes[0]]['node_master_tocken']['swarm_facts']['JoinTokens']['Manager']}}"
    remote_addrs: "{{master_nodes[0]}}"
-  when:  not first_node is defined and docker_install.changed and master is defined and master== 1
+  when:  not first_node is defined and docker_install.changed and master is defined and master== 1 and master_nodes | length > 0
 
 - name: Join swarm worker
   docker_swarm: 
@@ -28,4 +28,24 @@
    advertise_addr: "{{ansible_fqdn}}"
    join_token: "{{hostvars[master_nodes[0]]['node_master_tocken']['swarm_facts']['JoinTokens']['Worker']}}"
    remote_addrs: "{{master_nodes[0]}}"
-  when:  not first_node is defined and docker_install.changed and master is undefined or master != 1
+  when:  not first_node is defined and docker_install.changed and ( master is undefined or master != 1 )  and master_nodes | length > 0
+
+- name: Update swarm worker
+  docker_swarm:
+   state: inspect
+  when:  first_node is defined and first_node
+
+- name: Initiate label
+  shell: "/usr/bin/docker node update --label-add workder=1 {{hostvars[item]['ansible_fqdn']}}"
+  when: first_node is defined and first_node and hostvars[item]['docker_install']['changed']
+
+  with_items: "{{worker_nodes}}"
+
+- name: Update label
+  docker_node: 
+   hostname: "{{hostvars[item]['ansible_fqdn']}}"
+   labels_state: replace
+   labels:
+    "{{node_label}}"
+  when: first_node is defined and first_node
+  with_items: "{{worker_nodes}}"

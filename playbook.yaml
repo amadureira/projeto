@@ -1,5 +1,5 @@
 ---
-- hosts: "{{swarm_manager| default('None')}}"
+- hosts: "{{swarm_install| default('None')}}"
   become: yes
   tasks: 
    - name: Debug
@@ -9,3 +9,14 @@
    - name: Install swarm 
      include_role: 
       name: "swarm-cluster"
+     vars: 
+      swarm_manager: "{{swarm_install}}"
+- hosts: "{{swarm_service| default('None')}}"
+  become: yes
+  tasks: 
+   - name: Deploy Service
+     include_role: 
+      name: "swarm-cluster"
+      tasks_from: "deploy_service.yaml"
+     vars: 
+      swarm_manager: "{{swarm_service}}"

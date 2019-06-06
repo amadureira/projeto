@@ -1,4 +1,3 @@
-
 - name: Set proxy
   set_fact: 
    pip_extra_args: "--proxy {{proxy_addr}}"
@@ -7,14 +6,11 @@
 - name: Config proxy
   lineinfile: 
    path: "/etc/yum.conf"
-   regex: "^proxy=.+$"
+   regexp: "^proxy=.+$"
    line: "proxy=http://{{proxy_addr}}"
   when: proxy_addr is defined
 
-- name: Install docker
-  yum: 
-   name: python2-pip
-   state: installed
+- include_tasks: 0_pre_fly_centos.yaml
 
 - name: Install docker
   yum: 
@@ -22,10 +18,17 @@
    state: installed
   register: docker_install
 
+- name: Docker config
+  template: 
+   src: docker
+   dest: /etc/sysconfig/docker
+  notify: Restart Docker
+
 - name: Init docker service
   service: 
    name: "docker"
    state: started
+  register: docker_service
 
 - name: Set proxy
   set_fact: 

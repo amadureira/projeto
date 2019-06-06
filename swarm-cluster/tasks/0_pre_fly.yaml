@@ -5,14 +5,24 @@
 - name: Set Arrays
   set_fact: 
    master_nodes: [] 
+   worker_nodes: [] 
 
 - name: Ser Master array
   set_fact: 
    master_nodes: "{{master_nodes + [item]}}"
   when: hostvars[item]['master'] is defined
   with_items: "{{groups[swarm_manager]}}"
+- name: Check Master nodes
+  fail: 
+   msg: "No master found"
+  when: master_nodes | length == 0
+- name: Ser Worker array
+  set_fact: 
+   worker_nodes: "{{worker_nodes + [item]}}"
+  when: hostvars[item]['master'] is undefined
+  with_items: "{{groups[swarm_manager]}}"
 
 - name: Master firts node
   set_fact:
    first_node: true
-  when: master_nodes | length > 0  and ansible_fqdn == master_nodes[0]
+  when: master_nodes | length > 0  and  master_nodes[0] in [ ansible_fqdn,ansible_hostname,ansible_default_ipv4['address']] 

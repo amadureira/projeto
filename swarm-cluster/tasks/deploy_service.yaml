@@ -1,0 +1,10 @@
+---
+- include_tasks: 0_pre_fly.yaml 
+
+- name: debug
+  docker_swarm_service: 
+   name: myservice
+   image: nginx:latest
+   labels:
+    node: default
+  when: first_node is defined and first_node

@@ -1,2 +1,5 @@
 ---
 # defaults file for swarm-cluster
+node_label: 
+ node: default
+ nodes: default
