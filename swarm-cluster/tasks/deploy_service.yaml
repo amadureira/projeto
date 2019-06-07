@@ -8,9 +8,9 @@
    state: absent
    replicas: 3
    publish:
-     protocol: tcp
-     published_port: 80
-     target_port: 80
+     - protocol: tcp
+       published_port: 80
+       target_port: 80
    labels:
     node: default
   when: first_node is defined and first_node
