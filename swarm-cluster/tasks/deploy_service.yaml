@@ -4,7 +4,7 @@
 - name: Create Nginx service
   docker_swarm_service: 
    name: myservice
-   image: nginx:latest
+   image: amadureira/madureira:latest
    state: "{{nginx_service_state| default('present')}}"
    replicas: 3
    publish:
