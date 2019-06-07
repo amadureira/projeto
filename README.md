@@ -9,7 +9,7 @@ A infraestrutura será entregue na AWS.
 Passos
 ======
 
-***Subir a Infra****
+***Subir a Infra***
 
 No diretório terraform temos os arquivos necessários para subir toda a infraestrutura. Para iniciar o deploy devemos executar os comandos abaixo dentro deste diretório
 
