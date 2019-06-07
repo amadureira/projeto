@@ -5,7 +5,7 @@
   docker_swarm_service: 
    name: myservice
    image: nginx:latest
-   state: absent
+   state: "{{nginx_service_state| default('present')}}"
    replicas: 3
    publish:
      - protocol: tcp
