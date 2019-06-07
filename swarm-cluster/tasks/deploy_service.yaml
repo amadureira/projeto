@@ -12,7 +12,6 @@
        published_port: 80
        target_port: 80
    placement:
-           preferences:
-                   constraints:
-                     - node: worker
+     constraints:
+       - node: worker
   when: first_node is defined and first_node
