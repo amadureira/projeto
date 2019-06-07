@@ -1,10 +1,16 @@
 ---
 - include_tasks: 0_pre_fly.yaml 
 
-- name: debug
+- name: Create Nginx service
   docker_swarm_service: 
    name: myservice
    image: nginx:latest
+   state: absent
+   replicas: 3
+   publish:
+     protocol: tcp
+     published_port: 80
+     target_port: 80
    labels:
     node: default
   when: first_node is defined and first_node
