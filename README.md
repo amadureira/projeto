@@ -1,13 +1,26 @@
-Iniciar docker ansible
-######################
+Projeto
+=======
 
-Instala��o do docker e inicializa��o dos master
-##########
-Para instalarmos o docker, precisamos definir o inventario de servidores. Segue um exemplo abaixo:
-[swarm]
-10.0.0.10 master=1
-10.0.0.11 master=1
-10.0.0.12 master=1
-10.0.0.13
-10.0.0.14
-10.0.0.15
+O objetivo deste projeto é entregar um cluster de Swarm com uma aplicação de exemplo. 
+
+A infraestrutura será entregue na AWS. 
+
+
+Passos
+======
+
+***Subir a Infra****
+
+No diretório terraform temos os arquivos necessários para subir toda a infraestrutura. Para iniciar o deploy devemos executar os comandos abaixo dentro deste diretório
+
+* terraform init
+* terraform apply 
+
+***Instalar o cluster Swarm***
+
+Para instalar o cluster, devemos primeiro executar o script prepare.sh . Este script deve instalar os pacotes git e python2-pip, além de clonar este repositório.  
+
+No diretório projeto devemos executar o script exec.sh . Este script deverá instalar o cluster e em seguida fazer o deploy da aplicação. 
+
+**OBS** 
+Para que o script exec.sh rode sem problemas, a chave ssh deve estar no diretório /home/ec2-user/
