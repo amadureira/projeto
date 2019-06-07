@@ -11,6 +11,8 @@
      - protocol: tcp
        published_port: 80
        target_port: 80
-   labels:
-    node: default
+   placement:
+           preferences:
+                   constraints:
+                     - node: worker
   when: first_node is defined and first_node
