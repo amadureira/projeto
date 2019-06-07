@@ -18,9 +18,10 @@ No diretório terraform temos os arquivos necessários para subir toda a infraes
 
 ***Instalar o cluster Swarm***
 
-Para instalar o cluster, devemos primeiro executar o script prepare.sh . Este script deve instalar os pacotes git e python2-pip, além de clonar este repositório.  
+Para instalar o cluster, devemos primeiro executar o script prepare.sh. Este script deve instalar os pacotes git e python2-pip, além de clonar este repositório.
 
-No diretório projeto devemos executar o script exec.sh . Este script deverá instalar o cluster e em seguida fazer o deploy da aplicação. 
+No diretório projeto devemos executar o script exec.sh. Este script deverá instalar o cluster e em seguida fazer o deploy da aplicação.
 
 **OBS** 
-Para que o script exec.sh rode sem problemas, a chave ssh deve estar no diretório /home/ec2-user/
+
+Por questões de segurança, a chave privada foi enviada por e-mail. 
