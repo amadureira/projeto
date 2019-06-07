@@ -13,5 +13,5 @@
        target_port: 80
    placement:
      constraints:
-       - node.labels.node ==  worker
+       - node.labels.node ==  default
   when: first_node is defined and first_node
