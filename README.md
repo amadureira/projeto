@@ -25,3 +25,5 @@ No diretório projeto devemos executar o script exec.sh. Este script deverá ins
 **OBS** 
 
 Por questões de segurança, a chave privada foi enviada por e-mail. 
+
+O script deverá ser executado dentro de uma das máquinas da rede pública. 
